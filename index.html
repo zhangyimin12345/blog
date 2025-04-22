@@ -14,10 +14,33 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/css.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/bash.min.js"></script>
+    <link rel="stylesheet" href="https://blog-static.cnblogs.com/files/liyhbk/APlayer.min.css">
+
+    <!-- 自定义歌词样式 -->
+    <style>
+        .aplayer-list li,
+        .aplayer-music {
+            text-align: left;
+            color: #666
+        }
+
+        .aplayer-lrc .aplayer-lrc-contents p {
+            font-size: 15px !important;
+            font-weight: bold !important;
+        }
+
+        .aplayer-lrc .aplayer-lrc-contents .aplayer-lrc-current {
+            color: #212121 !important;
+        }
+    </style>
 
     <!-- <body style="min-height: 1500px; position: relative;"> -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+
+        * {
+            pointer-events: auto;
+        }
 
         body {
             font-family: 'Noto Serif SC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -82,6 +105,7 @@
 
         /* 模态框样式 */
         .modal {
+            pointer-events: auto;
             display: none;
             position: fixed;
             top: 0;
@@ -98,7 +122,8 @@
         }
 
         .modal-content {
-            background-color: rgba(255, 255, 255, 0.5);
+            pointer-events: auto;
+            background-color: rgba(255, 255, 255, 0.9);
             width: 80%;
             max-width: 800px;
             max-height: 80vh;
@@ -195,7 +220,7 @@
             /* 橙色渐变 */
         }
 
-        .tag-yuanchuang{
+        .tag-yuanchuang {
             background: linear-gradient(to right, #ffcc00, #ff9346);
             /* 橙色渐变 */
         }
@@ -346,6 +371,22 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 90%;
             height: 300px;
+            overflow-x: auto;
+            overflow-y: auto;
+        }
+
+        .end-box {
+            position: absolute;
+            top: 1350px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px 40px;
+            border-radius: 10px;
+            z-index: 100;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            height: 100px;
             overflow-x: auto;
             overflow-y: auto;
             margin-bottom: 100px;
@@ -795,34 +836,100 @@
         pre:hover .copy-btn {
             opacity: 1;
         }
+
+        .announcements-container {
+            margin: 20px 0;
+            max-width: 800px;
+            overflow-y: auto;
+            /* margin-left: auto;
+            margin-right: auto; */
+        }
+
+        .announcement-box {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #3498db;
+            transition: all 0.3s ease;
+        }
+
+        .announcement-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .announcement-time {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .announcement-content {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .btn1 {
+            border-radius: .375rem;
+            border: 1px #0000 solid;
+            font-size: .875rem;
+            background-color: #F6F8FA;
+            padding-inline: 1em;
+            padding-block: .5em;
+            transition: all .25s linear;
+        }
+
+        .btn1:hover {
+            background-color: #d0d7de52;
+        }
+
+        .btn1:active {
+            background-color: #ebecf0;
+            border: 1px #1f232826 solid;
+        }
+
+        .btn1.clicked {
+            border: 1px #8c959f solid;
+            background-color: #fff;
+        }
+
+        /* 工具列表样式 */
+        .tools-list {
+            padding: 15px;
+        }
+
+        .tool-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tool-item:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            transform: translateX(5px);
+        }
+
+        .tool-item i {
+            margin-right: 10px;
+            color: #3498db;
+            font-size: 18px;
+        }
+
+        .tool-item span {
+            font-size: 16px;
+            color: #333;
+        }
     </style>
 
     <!--讨论板块样式-->
     <style id="comments-style">
-        .btn1 {
-			border-radius: .375rem;
-			border: 1px #0000 solid;
-			font-size: .875rem;
-			background-color: #F6F8FA;
-			padding-inline: 1em;
-			padding-block: .5em;
-			transition: all .25s linear;
-		}
-
-		.btn1:hover {
-			background-color: #d0d7de52;
-		}
-
-		.btn1:active {
-			background-color: #ebecf0;
-			border: 1px #1f232826 solid;
-		}
-
-		.btn1.clicked {
-			border: 1px #8c959f solid;
-			background-color: #fff;
-		}
-        
         #comments-1 {
             display: none;
         }
@@ -920,6 +1027,9 @@
             }
         }
     </style>
+
+    <style>
+    </style>
 </head>
 
 <body>
@@ -945,6 +1055,14 @@
             <i class="fas fa-book-open fa-2x" style="color: #3498db;"></i>
             <div class="book-label">文章广场</div>
         </div>
+        <div class="book-button" id="changelog-button">
+            <i class="fas fa-history fa-2x" style="color: #3498db;"></i>
+            <div class="book-label">更新日志</div>
+        </div>
+        <div class="book-button" id="tools-button">
+            <i class="fas fa-tools fa-2x" style="color: #3498db;"></i>
+            <div class="book-label">工具</div>
+        </div>
     </div>
 
     <!-- 搜索结果模态框 -->
@@ -958,6 +1076,56 @@
                 <div class="loading" id="loading">正在搜索中...</div>
                 <div class="error" id="error"></div>
                 <div class="results-container" id="results"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 更新日志模态框 -->
+    <div class="modal" id="changelog-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">更新日志</div>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="announcements-container">
+                    <div class="announcement-box">
+                        <div class="announcement-time">2025-4-22</div>
+                        <div class="announcement-content">
+                            更新如下：
+                            <ul>
+                                <li>修复了一些已知问题。</li>
+                                <li>为本网页添加了一些动画。</li>
+                                <li>做了一些细微美化。</li>
+                                <li>添加音乐播放。</li>
+                                <li>添加时间框与猫。</li>
+                                <li>添加公告与更新日志。</li>
+                                <li>添加工具，但只放了一个工具。</li>
+                                <li>导入 <strong>CPlusPlus-Notes-Codes</strong>。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- ... -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 在搜索结果模态框后添加工具模态框 -->
+    <div class="modal" id="tools-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">实用工具</div>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- 修改工具列表部分 -->
+                <div class="tools-list">
+                    <div class="tool-item" data-url="https://wbwdxh.github.io/code.html">
+                        <i class="fas fa-code"></i>
+                        <span>Monaco 代码编辑器 by wbw121124</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -977,11 +1145,11 @@
     </div>
 
     <div class="chat-box" id="chat-box">
-        <main id="chat"> <span
+        <main id="test-snake-chat"> <span
                 style="display: inline-flex; flex-direction: row; flex-wrap: nowrap; align-content: flex-start; justify-content: flex-start; margin: 0; padding: 0; align-items: center; background-color: #F6F8FA; box-sizing: border-box; border-radius: .375rem; border-color: #d0d7de; border: 0 solid !important;">
-                <button id="utteranc-btn" onclick="showchatbox(1)" class="luogu-btn btn1"> utteranc </button> <button
-                    id="giscus-btn" onclick="showchatbox(2)" class="luogu-btn"> giscus </button>
-                <script> function showchatbox(x) { if (x == 2) { document.getElementById("comments-style").innerHTML = `#comments - 1 { display: none; } #comments - 2 { display: block; } `; document.getElementById("giscus-btn").classList.add("clicked"); document.getElementById("utteranc-btn").classList.add("clicked"); document.getElementById("utteranc-btn").classList.remove("clicked"); } else { document.getElementById("comments-style").innerHTML = `#comments - 2 { display: none; } #comments - 1 { display: block; }`; document.getElementById("utteranc-btn").classList.add("clicked"); document.getElementById("giscus-btn").classList.add("clicked"); document.getElementById("giscus-btn").classList.remove("clicked"); } } </script>
+                <button id="utteranc-btn" onclick="showchatbox(1)" class="btn1"> utteranc </button> <button
+                    id="giscus-btn" onclick="showchatbox(2)" class="btn1 clicked"> giscus </button>
+                <script> function showchatbox(x) { if (x == 2) { document.getElementById("comments-style").innerHTML = `#comments-1 { display: none; } #comments-2 { display: block; }`; document.getElementById("giscus-btn").classList.add("clicked"); document.getElementById("utteranc-btn").classList.add("clicked"); document.getElementById("utteranc-btn").classList.remove("clicked"); } else { document.getElementById("comments-style").innerHTML = `#comments-2 { display: none; } #comments-1 { display: block; }`; document.getElementById("utteranc-btn").classList.add("clicked"); document.getElementById("giscus-btn").classList.add("clicked"); document.getElementById("giscus-btn").classList.remove("clicked"); } } </script>
             </span>
             <div id="comments-1">
                 <script src="https://utteranc.es/client.js" repo="zhangyimin12345/zhangyimin12345.github.io"
@@ -1001,13 +1169,23 @@
     <div class="title-box" id="main-content">
         <h1 class="title">Welcome to zhangyimin12345's blog!</h1>
         <h3>这里是 <strong>zhangyimin12345</strong> 的博客，部分功能还没实现，但可以放心使用~~~</h3>
-        <h3>以下是已实现的功能：</h3>
-        <h3><strong>1.</strong>文章广场：可以查看所有文章，点击文章标题可以查看文章内容。</h3>
-        <h3><strong>2.</strong>搜索文章：可以通过文章标题搜索文章。</h3>
-        <h3><strong>3.</strong>文章查看器：可以查看文章内容。</h3>
-        <h3><strong>4.</strong>讨论板块：可以查看这个网页的讨论。</h3>
         <h3>由于正忙着增加功能，原创文章不多~~~</h3>
         <h3>敬请期待！</h3>
+        <hr>
+        <div class="announcements-container">
+            <h1>公告</h1>
+            <div class="announcement-box">
+                <div class="announcement-time">2025-4-22</div>
+                <div class="announcement-content">
+                    <h5>欢迎回到 <strong>my</strong> 博客！本次更新进行了若干项功能添加，详见"更新日志"。</h5>
+                    <h5>有 <strong>bug</strong> 一定要在评论区说出来啊！后续会增加已处理 <strong>bug</strong> 界面，以防重复报错。</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="end-box" style="text-align: center;">
+        <h6>zhangyimin12345's blog v.0.2.3 请勿照搬</h6>
     </div>
 
     <div class="links-box" id="links-box">
@@ -1015,475 +1193,875 @@
         <h3>1.<a href="https://www.luogu.com.cn/paste/ll1iyba5">洛谷云剪贴板大通关</a></h3>
     </div>
 
-    <!-- 引入Marked.js和KaTeX -->
-    <script src="https://cdn.jsdelivr.net/npm/marked@4.0.0/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <div id="clock" style="
+position: fixed;
+bottom: 20px;
+right: 20px;
+background-color: rgba(243, 251, 255, 0.9);
+color: rgba(0, 0, 0, 0.5);
+padding: 10px 15px;
+border-radius: 20px;
+font-family: 'Arial', sans-serif;
+font-size: 14px;
+font-weight: bold;
+z-index: 9999;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+transition: all 0.3s ease;
+"></div>
 
+    <script type="text/javascript" charset="utf-8"
+        src="https://files.cnblogs.com/files/liuzhou1/L2Dwidget.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const searchInput = document.getElementById('search-input');
-            const searchButton = document.getElementById('search-button');
-            const resultsContainer = document.getElementById('results');
-            const loadingElement = document.getElementById('loading');
-            const errorElement = document.getElementById('error');
-            const searchModal = document.getElementById('search-modal');
-            const closeModal = document.querySelector('.close-modal');
-            const docViewer = document.getElementById('doc-viewer');
-            const docTitle = document.getElementById('doc-title');
-            const docContent = document.getElementById('doc-content');
-            const closeDoc = document.getElementById('close-doc');
-            const homeButton = document.getElementById('home-button');
-            const mainContent = document.getElementById('main-content');
-            const linksContent = document.getElementById('links-box');
-            const chatContent = document.getElementById('chat-box');
+        L2Dwidget.init({
+            "model": {
+                jsonPath: "https://unpkg.com/live2d-widget-model-tororo@1.0.5/assets/tororo.model.json",
+                "scale": 1
+            },
+            "display": {
+                "position": "right", //模型的表现位置
+                "width": 150,  //模型的宽度
+                "height": 300, //模型的高度
+                "hOffset": 0,
+                "vOffset": -20
+            },
+            "mobile": {
+                "show": true,
+                "scale": 0.5
+            },
+            "react": {
+                "opacityDefault": 0.7,  //模型默认透明度
+                "opacityOnHover": 0.2
+            }
+        });
+    </script>
 
-            // 获取文章广场按钮和容器
-            const articlesSquareButton = document.getElementById('articles-square-button');
-            const articlesSquare = document.createElement('div');
-            articlesSquare.className = 'articles-square';
-            articlesSquare.id = 'articles-square';
-            document.body.appendChild(articlesSquare);
+    <!-- 博客禁止复制粘贴（不包括代码） -->
+    <script language="javascript">
+        document.body.onselectstart = document.body.ondrag = function () { return false; }
+    </script>
 
-            // 配置Marked.js以支持KaTeX
-            marked.setOptions({
-                breaks: true,
-                highlight: function (code, lang) {
-                    if (lang && hljs.getLanguage(lang)) {
-                        return hljs.highlight(code, { language: lang }).value;
-                    }
-                    return hljs.highlightAuto(code).value;
-                }
+    <!-- 网易云音乐 -->
+    <div id="aplayer" class="aplayer" data-id="1" data-server="netease" data-type="playlist" data-fixed="true"
+        data-listfolded="true" data-order="random" data-theme="#3498db" style="
+        position: fixed;
+        z-index: 9999;
+    "></div>
+    <script src="https://blog-static.cnblogs.com/files/liyhbk/Meting.min.js"></script>
+    <script src="https://blog-static.cnblogs.com/files/liyhbk/APlayer.min.js"></script>
+</body>
+
+<!-- 引入Marked.js和KaTeX -->
+<script src="https://cdn.jsdelivr.net/npm/marked@4.0.0/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+<script>
+    // 时钟和播放器悬停效果
+    document.getElementById('clock').addEventListener('mouseenter', function () {
+        this.style.transform = 'scale(1.05)';
+        this.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.3)';
+    });
+    document.getElementById('clock').addEventListener('mouseleave', function () {
+        this.style.transform = 'scale(1)';
+        this.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+    });
+    document.querySelectorAll('.doc-content img').forEach(img => {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', function () {
+            const lightbox = document.createElement('div');
+            lightbox.style.position = 'fixed';
+            lightbox.style.top = '0';
+            lightbox.style.left = '0';
+            lightbox.style.width = '100%';
+            lightbox.style.height = '100%';
+            lightbox.style.backgroundColor = 'rgba(0,0,0,0.8)';
+            lightbox.style.display = 'flex';
+            lightbox.style.justifyContent = 'center';
+            lightbox.style.alignItems = 'center';
+            lightbox.style.zIndex = '9999';
+            lightbox.style.cursor = 'zoom-out';
+
+            const imgClone = img.cloneNode();
+            imgClone.style.maxWidth = '90%';
+            imgClone.style.maxHeight = '90%';
+
+            lightbox.appendChild(imgClone);
+            document.body.appendChild(lightbox);
+
+            lightbox.addEventListener('click', function () {
+                document.body.removeChild(lightbox);
             });
+        });
+    });
+    document.querySelectorAll('.tool-item').forEach(item => {
+        item.addEventListener('click', function () {
+            const url = this.getAttribute('data-url');
+            if (url) {
+                window.open(url, '_blank');
+                hideToolsModal(); // 点击后关闭模态框
+            }
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const resultsContainer = document.getElementById('results');
+        const loadingElement = document.getElementById('loading');
+        const errorElement = document.getElementById('error');
+        const searchModal = document.getElementById('search-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const docViewer = document.getElementById('doc-viewer');
+        const docTitle = document.getElementById('doc-title');
+        const docContent = document.getElementById('doc-content');
+        const closeDoc = document.getElementById('close-doc');
+        const homeButton = document.getElementById('home-button');
+        const mainContent = document.getElementById('main-content');
+        const linksContent = document.getElementById('links-box');
+        const chatContent = document.getElementById('chat-box');
 
-            // 渲染KaTeX公式
-            function renderMath() {
-                renderMathInElement(docContent, {
-                    delimiters: [
-                        { left: '$$', right: '$$', display: true },
-                        { left: '$', right: '$', display: false },
-                        { left: '\\(', right: '\\)', display: false },
-                        { left: '\\[', right: '\\]', display: true }
-                    ],
-                    throwOnError: false
+        // 获取文章广场按钮和容器
+        const articlesSquareButton = document.getElementById('articles-square-button');
+        const articlesSquare = document.createElement('div');
+        articlesSquare.className = 'articles-square';
+        articlesSquare.id = 'articles-square';
+        document.body.appendChild(articlesSquare);
+
+        // 在DOMContentLoaded事件监听器中添加
+        const toolsButton = document.getElementById('tools-button');
+        const toolsModal = document.getElementById('tools-modal');
+
+        // 显示工具模态框
+        function showToolsModal() {
+            toolsModal.style.display = 'flex';
+            setTimeout(() => {
+                toolsModal.classList.add('show');
+            }, 10);
+        }
+
+        // 隐藏工具模态框
+        function hideToolsModal() {
+            toolsModal.classList.remove('show');
+            setTimeout(() => {
+                toolsModal.style.display = 'none';
+            }, 300);
+        }
+
+        // 点击事件
+        toolsButton.addEventListener('click', showToolsModal);
+
+        // 点击模态框外部关闭
+        toolsModal.addEventListener('click', function (e) {
+            if (e.target === toolsModal) {
+                e.stopPropagation();
+                hideToolsModal();
+            }
+        });
+
+        // 点击关闭按钮
+        toolsModal.querySelector('.close-modal').addEventListener('click', function (e) {
+            e.stopPropagation();
+            hideToolsModal();
+        });
+
+        // 配置Marked.js以支持KaTeX
+        marked.setOptions({
+            breaks: true,
+            highlight: function (code, lang) {
+                if (lang && hljs.getLanguage(lang)) {
+                    return hljs.highlight(code, { language: lang }).value;
+                }
+                return hljs.highlightAuto(code).value;
+            }
+        });
+
+        // 渲染KaTeX公式
+        function renderMath() {
+            renderMathInElement(docContent, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },
+                    { left: '\\[', right: '\\]', display: true }
+                ],
+                throwOnError: false
+            });
+        }
+
+        // 更流畅的模态框显示/隐藏
+        function showModal() {
+            searchModal.style.display = 'flex';
+            setTimeout(() => {
+                searchModal.classList.add('show');
+            }, 10);
+        }
+
+        function hideModal() {
+            searchModal.classList.remove('show');
+            setTimeout(() => {
+                searchModal.style.display = 'none';
+            }, 300);
+        }
+
+        // 在DOMContentLoaded事件监听器中添加
+        const changelogButton = document.getElementById('changelog-button');
+        const changelogModal = document.getElementById('changelog-modal');
+
+        // 显示更新日志模态框
+        function showChangelogModal() {
+            changelogModal.style.display = 'flex';
+            setTimeout(() => {
+                changelogModal.classList.add('show');
+            }, 10);
+        }
+
+        // 隐藏更新日志模态框
+        function hideChangelogModal() {
+            changelogModal.classList.remove('show');
+            setTimeout(() => {
+                changelogModal.style.display = 'none';
+            }, 300);
+        }
+
+        // 点击事件
+        changelogButton.addEventListener('click', showChangelogModal);
+
+        // 点击模态框外部关闭
+        changelogModal.addEventListener('click', function (e) {
+            if (e.target === changelogModal) {
+                e.stopPropagation();
+                hideChangelogModal();
+            }
+        });
+
+        // 点击关闭按钮
+        changelogModal.querySelector('.close-modal').addEventListener('click', function (e) {
+            e.stopPropagation();
+            hideChangelogModal();
+        });
+
+        // 显示文档查看器
+        function showDocViewer(title) {
+            docTitle.textContent = title;
+            docViewer.style.display = 'block';
+            mainContent.style.display = 'none';
+            linksContent.style.display = 'none';
+            chatContent.style.display = 'none';
+            articlesSquare.style.display = 'none';
+        }
+
+        // 隐藏文档查看器
+        function hideDocViewer() {
+            docViewer.style.display = 'none';
+            mainContent.style.display = 'block';
+            linksContent.style.display = 'block';
+            chatContent.style.display = 'block';
+            articlesSquare.style.display = 'none';
+        }
+
+        // 加载并渲染文档
+        async function loadAndRenderDoc(url, title) {
+            showDocViewer(title);
+            docContent.innerHTML = '<div class="loading">正在加载文档...</div>';
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('文档加载失败');
+                }
+                const markdown = await response.text();
+                docContent.innerHTML = marked.parse(markdown);
+
+                // 渲染数学公式
+                renderMath();
+
+                // 高亮代码块并添加复制按钮
+                docContent.querySelectorAll('pre').forEach((preBlock) => {
+                    const codeBlock = preBlock.querySelector('code');
+                    if (codeBlock) {
+                        hljs.highlightElement(codeBlock);
+                        addCopyButton(preBlock, codeBlock);
+                    }
                 });
+
+            } catch (error) {
+                docContent.innerHTML = `<div class="error">加载文档时出错: ${error.message}</div>`;
             }
+        }
 
-            // 更流畅的模态框显示/隐藏
-            function showModal() {
-                searchModal.style.display = 'flex';
-                setTimeout(() => {
-                    searchModal.classList.add('show');
-                }, 10);
+        // 添加复制按钮功能
+        function addCopyButton(preBlock, codeBlock) {
+            const button = document.createElement('button');
+            button.className = 'copy-btn';
+            button.innerHTML = '<i class="far fa-copy"></i> 复制';
+            preBlock.appendChild(button);
+
+            button.addEventListener('click', function () {
+                navigator.clipboard.writeText(codeBlock.textContent).then(() => {
+                    button.innerHTML = '<i class="fas fa-check"></i> 已复制';
+                    button.classList.add('copied');
+
+                    setTimeout(() => {
+                        button.innerHTML = '<i class="far fa-copy"></i> 复制';
+                        button.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        }
+
+        // 修改点击模态框外部关闭的逻辑
+        searchModal.addEventListener('click', function (e) {
+            if (e.target === searchModal) {
+                e.stopPropagation(); // 阻止事件冒泡
+                hideModal();
             }
+        });
 
-            function hideModal() {
-                searchModal.classList.remove('show');
-                setTimeout(() => {
-                    searchModal.style.display = 'none';
-                }, 300);
+        // 修改关闭按钮的事件处理
+        closeModal.addEventListener('click', function (e) {
+            e.stopPropagation(); // 阻止事件冒泡
+            hideModal();
+        });
+
+        // 点击关闭文档按钮
+        closeDoc.addEventListener('click', hideDocViewer);
+
+        // 点击首页按钮
+        homeButton.addEventListener('click', function () {
+            hideDocViewer();
+            articlesSquare.style.display = 'none';
+        });
+
+        // 模拟搜索结果
+        const mockResults = [
+            {
+                name: 'DeepSeek | 中文官网、DeepSeek网页版、API 调用和本地部署教程 | 最全使用指南~ 【2025年4月更新】',
+                path: 'DeepSeek | 中文官网、DeepSeek网页版、API 调用和本地部署教程 | 最全使用指南~ 【2025年4月更新】',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/Deepseek-1.md',
+                title: 'DeepSeek | 中文官网、DeepSeek网页版、API 调用和本地部署教程 | 最全使用指南~ 【2025年4月更新】',
+                tag: ['推荐阅读', '最近更新', '教程', 'AI技术']
+            },
+            {
+                name: 'N倍经验',
+                path: 'N倍经验',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/N%E5%80%8D%E7%BB%8F%E9%AA%8C.md',
+                title: 'N倍经验',
+                tag: ['推荐阅读', '最近更新', '学术', '娱乐', '原创', 'C++']
+            },
+            {
+                name: '那些蓝题及以上的水题',
+                path: '那些蓝题及以上的水题',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/%E9%82%A3%E4%BA%9B%E8%93%9D%E9%A2%98%E5%8F%8A%E4%BB%A5%E4%B8%8A%E7%9A%84%E6%B0%B4%E9%A2%98.md',
+                title: '那些蓝题及以上的水题',
+                tag: ['最近更新', '学术', '娱乐', '原创', 'C++']
+            },
+            {
+                name: 'AtCoderLibrary入门教程',
+                path: 'AtCoderLibrary入门教程',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/AtCoderLibrary%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.md',
+                title: 'AtCoderLibrary入门教程',
+                tag: ['推荐阅读', '最近更新', '教程', '学术', 'C++']
+            },
+            {
+                name: '01_C++的注释',
+                path: '01_C++的注释',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/01_C%2B%2B%E7%9A%84%E6%B3%A8%E9%87%8A.md',
+                title: '01_C++的注释',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '02_C++的main函数',
+                path: '02_C++的main函数',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/02_C%2B%2B%E7%9A%84main%E5%87%BD%E6%95%B0.md',
+                title: '02_C++的main函数',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '03_C++的打印',
+                path: '03_C++的打印',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/03_C%2B%2B%E7%9A%84%E6%89%93%E5%8D%B0.md',
+                title: '03_C++的打印',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '04_C++的常量',
+                path: '04_C++的常量',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/04_C%2B%2B%E7%9A%84%E5%B8%B8%E9%87%8F.md',
+                title: '04_C++的常量',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '05_C++的变量',
+                path: '05_C++的变量',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/05_C%2B%2B%E7%9A%84%E5%8F%98%E9%87%8F.md',
+                title: '05_C++的变量',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '06_C++的关键字',
+                path: '06_C++的关键字',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/06_C%2B%2B%E7%9A%84%E5%85%B3%E9%94%AE%E5%AD%97.md',
+                title: '06_C++的关键字',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '07_C++的标识符',
+                path: '07_C++的标识符',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/07_C%2B%2B%E7%9A%84%E6%A0%87%E8%AF%86%E7%AC%A6.md',
+                title: '07_C++的标识符',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '08_C++的数据类型',
+                path: '08_C++的数据类型',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/08_C%2B%2B%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.md',
+                title: '08_C++的数据类型',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '09_C++的转义字符',
+                path: '09_C++的转义字符',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/09_C%2B%2B%E7%9A%84%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6.md',
+                title: '09_C++的转义字符',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '10_C++的数据输入',
+                path: '10_C++的数据输入',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/10_C%2B%2B%E7%9A%84%E6%95%B0%E6%8D%AE%E8%BE%93%E5%85%A5.md',
+                title: '10_C++的数据输入',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '11_C++的运算符',
+                path: '11_C++的运算符',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/11_C%2B%2B%E7%9A%84%E8%BF%90%E7%AE%97%E7%AC%A6.md',
+                title: '11_C++的运算符',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '12_C++的程序流程结构',
+                path: '12_C++的程序流程结构',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/12_C%2B%2B%E7%9A%84%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E7%BB%93%E6%9E%84.md',
+                title: '12_C++的程序流程结构',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '13_C++的数组',
+                path: '13_C++的数组',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/13_C%2B%2B%E7%9A%84%E6%95%B0%E7%BB%84.md',
+                title: '13_C++的数组',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '14_C++的函数',
+                path: '14_C++的函数',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/14_C%2B%2B%E7%9A%84%E5%87%BD%E6%95%B0.md',
+                title: '14_C++的函数',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '15_C++的指针',
+                path: '15_C++的指针',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/15_C%2B%2B%E7%9A%84%E6%8C%87%E9%92%88.md',
+                title: '15_C++的指针',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '16_C++的结构体',
+                path: '16_C++的结构体',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/16_C%2B%2B%E7%9A%84%E7%BB%93%E6%9E%84%E4%BD%93.md',
+                title: '16_C++的结构体',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '17_C++的内存模型',
+                path: '17_C++的内存模型',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/17_C%2B%2B%E7%9A%84%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.md',
+                title: '17_C++的内存模型',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '18_C++的引用',
+                path: '18_C++的引用',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/18_C%2B%2B%E7%9A%84%E5%BC%95%E7%94%A8.md',
+                title: '18_C++的引用',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '19_C++的面向对象',
+                path: '19_C++的面向对象',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/19_C%2B%2B%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md',
+                title: '19_C++的面向对象',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '20_C++的类中封装',
+                path: '20_C++的类中封装',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/20_C%2B%2B%E7%9A%84%E7%B1%BB%E4%B8%AD%E5%B0%81%E8%A3%85.md',
+                title: '20_C++的类中封装',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '21_C++的调用其他类',
+                path: '21_C++的调用其他类',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/21_C%2B%2B%E7%9A%84%E8%B0%83%E7%94%A8%E5%85%B6%E4%BB%96%E7%B1%BB.md',
+                title: '21_C++的调用其他类',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '22_C++的类中特性',
+                path: '22_C++的类中特性',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/22_C%2B%2B%E7%9A%84%E7%B1%BB%E4%B8%AD%E7%89%B9%E6%80%A7.md',
+                title: '22_C++的类中特性',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '23_C++的类中友元',
+                path: '23_C++的类中友元',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/23_C%2B%2B%E7%9A%84%E7%B1%BB%E4%B8%AD%E5%8F%8B%E5%85%83.md',
+                title: '23_C++的类中友元',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '24_C++的类中运算符重载',
+                path: '24_C++的类中运算符重载',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/24_C%2B%2B%E7%9A%84%E7%B1%BB%E4%B8%AD%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD.md',
+                title: '24_C++的类中运算符重载',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '25_C++的类中继承',
+                path: '25_C++的类中继承',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/25_C%2B%2B%E7%9A%84%E7%B1%BB%E4%B8%AD%E7%BB%A7%E6%89%BF.md',
+                title: '25_C++的类中继承',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '26_C++的类中多态',
+                path: '26_C++的类中多态',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/26_C%2B%2B%E7%9A%84%E7%B1%BB%E4%B8%AD%E5%A4%9A%E6%80%81.md',
+                title: '26_C++的类中多态',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '27_C++的文件操作',
+                path: '27_C++的文件操作',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/27_C%2B%2B%E7%9A%84%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C.md',
+                title: '27_C++的文件操作',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '28_C++的模板',
+                path: '28_C++的模板',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/28_C%2B%2B%E7%9A%84%E6%A8%A1%E6%9D%BF.md',
+                title: '28_C++的模板',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '29_C++的STL',
+                path: '29_C++的STL',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/29_C%2B%2B%E7%9A%84STL.md',
+                title: '29_C++的STL',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '30_C++的函数对象',
+                path: '30_C++的函数对象',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/30_C%2B%2B%E7%9A%84%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1.md',
+                title: '30_C++的函数对象',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '31_C++的谓词',
+                path: '31_C++的谓词',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/31_C%2B%2B%E7%9A%84%E8%B0%93%E8%AF%8D.md',
+                title: '31_C++的谓词',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '32_C++的内建函数对象',
+                path: '32_C++的内建函数对象',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/32_C%2B%2B%E7%9A%84%E5%86%85%E5%BB%BA%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1.md',
+                title: '32_C++的内建函数对象',
+                tag: ['教程', '学术', 'C++']
+            },
+            {
+                name: '33_C++的常用算法',
+                path: '33_C++的常用算法',
+                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/33_C%2B%2B%E7%9A%84%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95.md',
+                title: '33_C++的常用算法',
+                tag: ['教程', '学术', 'C++']
             }
+        ];
 
-            // 显示文档查看器
-            function showDocViewer(title) {
-                docTitle.textContent = title;
-                docViewer.style.display = 'block';
-                mainContent.style.display = 'none';
-                linksContent.style.display = 'none';
-                chatContent.style.display = 'none';
-                articlesSquare.style.display = 'none';
-            }
+        // 模拟GitHub API搜索
+        function searchGitHubFiles(query) {
+            showModal();
+            loadingElement.style.display = 'block';
+            errorElement.textContent = '';
+            resultsContainer.innerHTML = '';
 
-            // 隐藏文档查看器
-            function hideDocViewer() {
-                docViewer.style.display = 'none';
-                mainContent.style.display = 'block';
-                linksContent.style.display = 'block';
-                chatContent.style.display = 'block';
-                articlesSquare.style.display = 'none';
-            }
-
-            // 加载并渲染文档
-            async function loadAndRenderDoc(url, title) {
-                showDocViewer(title);
-                docContent.innerHTML = '<div class="loading">正在加载文档...</div>';
-
+            // 模拟延迟
+            setTimeout(() => {
                 try {
-                    const response = await fetch(url);
-                    if (!response.ok) {
-                        throw new Error('文档加载失败');
-                    }
-                    const markdown = await response.text();
-                    docContent.innerHTML = marked.parse(markdown);
+                    const filteredResults = mockResults.filter(item =>
+                        item.name.toLowerCase().includes(query.toLowerCase()) ||
+                        item.path.toLowerCase().includes(query.toLowerCase()) ||
+                        item.title.toLowerCase().includes(query.toLowerCase())
+                    );
 
-                    // 渲染数学公式
-                    renderMath();
+                    if (filteredResults.length === 0) {
+                        resultsContainer.innerHTML = '<div class="result-item">没有找到匹配的文件</div>';
+                    } else {
+                        filteredResults.forEach(result => {
+                            const item = document.createElement('div');
+                            item.className = 'result-item';
 
-                    // 高亮代码块并添加复制按钮
-                    docContent.querySelectorAll('pre').forEach((preBlock) => {
-                        const codeBlock = preBlock.querySelector('code');
-                        if (codeBlock) {
-                            hljs.highlightElement(codeBlock);
-                            addCopyButton(preBlock, codeBlock);
-                        }
-                    });
+                            // 创建标题元素
+                            const titleElement = document.createElement('div');
+                            titleElement.className = 'result-title';
+                            titleElement.textContent = result.path;
 
-                } catch (error) {
-                    docContent.innerHTML = `<div class="error">加载文档时出错: ${error.message}</div>`;
-                }
-            }
+                            // 创建标签元素容器
+                            const tagContainer = document.createElement('div');
 
-            // 添加复制按钮功能
-            function addCopyButton(preBlock, codeBlock) {
-                const button = document.createElement('button');
-                button.className = 'copy-btn';
-                button.innerHTML = '<i class="far fa-copy"></i> 复制';
-                preBlock.appendChild(button);
+                            // 迭代并创建每个标签元素
+                            result.tag.forEach(tag => {
+                                const tagElement = document.createElement('span');
+                                tagElement.className = 'result-tag';
 
-                button.addEventListener('click', function () {
-                    navigator.clipboard.writeText(codeBlock.textContent).then(() => {
-                        button.innerHTML = '<i class="fas fa-check"></i> 已复制';
-                        button.classList.add('copied');
+                                // 根据标签类型设置不同的样式类
+                                switch (tag) {
+                                    case '推荐阅读':
+                                        tagElement.classList.add('tag-recommended');
+                                        break;
+                                    case '最近更新':
+                                        tagElement.classList.add('tag-recent');
+                                        break;
+                                    case '学术':
+                                        tagElement.classList.add('tag-academic');
+                                        break;
+                                    case '教程':
+                                        tagElement.classList.add('tag-tutorial');
+                                        break;
+                                    case '娱乐':
+                                        tagElement.classList.add('tag-entertainment');
+                                        break;
+                                    case '原创':
+                                        tagElement.classList.add('tag-yuanchuang');
+                                        break;
+                                }
 
-                        setTimeout(() => {
-                            button.innerHTML = '<i class="far fa-copy"></i> 复制';
-                            button.classList.remove('copied');
-                        }, 2000);
-                    });
-                });
-            }
-
-            // 点击模态框外部关闭
-            searchModal.addEventListener('click', function (e) {
-                if (e.target === searchModal) {
-                    hideModal();
-                }
-            });
-
-            // 点击关闭按钮关闭
-            closeModal.addEventListener('click', hideModal);
-
-            // 点击关闭文档按钮
-            closeDoc.addEventListener('click', hideDocViewer);
-
-            // 点击首页按钮
-            homeButton.addEventListener('click', function () {
-                hideDocViewer();
-                articlesSquare.style.display = 'none';
-            });
-
-
-            // 模拟GitHub API搜索
-            function searchGitHubFiles(query) {
-                showModal();
-                loadingElement.style.display = 'block';
-                errorElement.textContent = '';
-                resultsContainer.innerHTML = '';
-
-                // 模拟延迟
-                setTimeout(() => {
-                    try {
-                        // 模拟搜索结果
-                        const mockResults = [
-                            {
-                                name: 'DeepSeek | 中文官网、DeepSeek网页版、API 调用和本地部署教程 | 最全使用指南~ 【2025年4月更新】',
-                                path: 'DeepSeek | 中文官网、DeepSeek网页版、API 调用和本地部署教程 | 最全使用指南~ 【2025年4月更新】',
-                                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/Deepseek-1.md',
-                                title: 'DeepSeek | 中文官网、DeepSeek网页版、API 调用和本地部署教程 | 最全使用指南~ 【2025年4月更新】',
-                                tag: ['推荐阅读', '最近更新', '教程', 'AI技术']
-                            },
-                            {
-                                name: 'N倍经验',
-                                path: 'N倍经验',
-                                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/N%E5%80%8D%E7%BB%8F%E9%AA%8C.md',
-                                title: 'N倍经验',
-                                tag: ['推荐阅读', '最近更新', '学术', '娱乐', '原创', 'C++']
-                            },
-                            {
-                                name: '那些蓝题及以上的水题',
-                                path: '那些蓝题及以上的水题',
-                                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/%E9%82%A3%E4%BA%9B%E8%93%9D%E9%A2%98%E5%8F%8A%E4%BB%A5%E4%B8%8A%E7%9A%84%E6%B0%B4%E9%A2%98.md',
-                                title: '那些蓝题及以上的水题',
-                                tag: ['最近更新', '学术', '娱乐', '原创', 'C++']
-                            },
-                            {
-                                name: 'AtCoderLibrary入门教程',
-                                path: 'AtCoderLibrary入门教程',
-                                html_url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/AtCoderLibrary%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.md',
-                                title: 'AtCoderLibrary入门教程',
-                                tag: ['推荐阅读', '最近更新', '教程', '学术', 'C++']
-                            }
-                        ].filter(item =>
-                            item.name.toLowerCase().includes(query.toLowerCase()) ||
-                            item.path.toLowerCase().includes(query.toLowerCase())
-                        );
-
-                        if (mockResults.length === 0) {
-                            resultsContainer.innerHTML = '<div class="result-item">没有找到匹配的文件</div>';
-                        } else {
-                            mockResults.forEach(result => {
-                                const item = document.createElement('div');
-                                item.className = 'result-item';
-
-                                // 创建标题元素
-                                const titleElement = document.createElement('div');
-                                titleElement.className = 'result-title';
-                                titleElement.textContent = result.path;
-
-                                // 创建标签元素容器
-                                const tagContainer = document.createElement('div');
-
-                                // 迭代并创建每个标签元素
-                                result.tag.forEach(tag => {
-                                    const tagElement = document.createElement('span');
-                                    tagElement.className = 'result-tag';
-
-                                    // 根据标签类型设置不同的样式类
-                                    switch (tag) {
-                                        case '推荐阅读':
-                                            tagElement.classList.add('tag-recommended');
-                                            break;
-                                        case '最近更新':
-                                            tagElement.classList.add('tag-recent');
-                                            break;
-                                        case '学术':
-                                            tagElement.classList.add('tag-academic');
-                                            break;
-                                        case '教程':
-                                            tagElement.classList.add('tag-tutorial');
-                                            break;
-                                        case '娱乐':
-                                            tagElement.classList.add('tag-entertainment');
-                                            break;
-                                        case '原创':
-                                            tagElement.classList.add('tag-yuanchuang');
-                                            break;
-                                    }
-
-                                    tagElement.textContent = tag;
-                                    tagContainer.appendChild(tagElement);
-                                });
-
-                                // 将标题和标签容器添加到结果项中
-                                item.appendChild(titleElement);
-                                item.appendChild(tagContainer);
-
-                                item.addEventListener('click', () => {
-                                    hideModal();
-                                    loadAndRenderDoc(result.html_url, result.title);
-                                });
-                                resultsContainer.appendChild(item);
+                                tagElement.textContent = tag;
+                                tagContainer.appendChild(tagElement);
                             });
-                        }
 
-                        loadingElement.style.display = 'none';
-                    } catch (error) {
-                        loadingElement.style.display = 'none';
-                        errorElement.textContent = '搜索时出错: ' + error.message;
+                            // 将标题和标签容器添加到结果项中
+                            item.appendChild(titleElement);
+                            item.appendChild(tagContainer);
+
+                            item.addEventListener('click', () => {
+                                hideModal();
+                                loadAndRenderDoc(result.html_url, result.title);
+                            });
+                            resultsContainer.appendChild(item);
+                        });
                     }
-                }, 800);
-            }
 
-            // 搜索按钮点击事件
-            searchButton.addEventListener('click', function () {
+                    loadingElement.style.display = 'none';
+                } catch (error) {
+                    loadingElement.style.display = 'none';
+                    errorElement.textContent = '搜索时出错: ' + error.message;
+                }
+            }, 800);
+        }
+
+        // 搜索按钮点击事件
+        searchButton.addEventListener('click', function () {
+            const query = searchInput.value.trim();
+            if (query) {
+                searchGitHubFiles(query);
+            }
+        });
+
+        // 回车键搜索
+        searchInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
                 const query = searchInput.value.trim();
                 if (query) {
                     searchGitHubFiles(query);
                 }
-            });
+            }
+        });
 
-            // 回车键搜索
-            searchInput.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    const query = searchInput.value.trim();
-                    if (query) {
-                        searchGitHubFiles(query);
-                    }
-                }
-            });
+        // 显示文章广场
+        function showArticlesSquare() {
+            // 隐藏其他内容
+            docViewer.style.display = 'none';
+            mainContent.style.display = 'none';
+            linksContent.style.display = 'none';
+            chatContent.style.display = 'none';
 
             // 显示文章广场
-            function showArticlesSquare() {
-                // 隐藏其他内容
-                docViewer.style.display = 'none';
-                mainContent.style.display = 'none';
-                linksContent.style.display = 'none';
-                chatContent.style.display = 'none';
+            articlesSquare.style.display = 'block';
 
-                // 显示文章广场
-                articlesSquare.style.display = 'block';
-
-                // 如果文章广场内容为空，则动态加载
-                if (articlesSquare.innerHTML === '') {
-                    loadArticlesSquare();
-                }
+            // 如果文章广场内容为空，则动态加载
+            if (articlesSquare.innerHTML === '') {
+                loadArticlesSquare();
             }
+        }
 
-            // 加载文章广场内容
-            function loadArticlesSquare() {
-                articlesSquare.innerHTML = '<div class="loading">正在加载文章广场...</div>';
+        // 加载文章广场内容
+        function loadArticlesSquare() {
+            articlesSquare.innerHTML = '<div class="loading">正在加载文章广场...</div>';
 
-                // 模拟异步加载文章数据
-                setTimeout(() => {
-                    const mockArticles = {
-                        '推荐阅读': [
-                            {
-                                title: 'DeepSeek | 中文官网、DeepSeek网页版、API 调用和本地部署教程 | 最全使用指南~ 【2025年4月更新】',
-                                url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/Deepseek-1.md',
-                                date: '2025年4月18日',
-                                excerpt: '本文详细介绍了DeepSeek的官方资源获取途径、网页版使用方法、API调用指南以及本地部署教程，是最全面的DeepSeek使用指南。'
-                            },
-                            {
-                                url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/N%E5%80%8D%E7%BB%8F%E9%AA%8C.md',
-                                title: 'N倍经验',
-                                date: '2025年4月19日',
-                                excerpt: '本文详细介绍了洛谷一些多倍经验的题。'
-                            },
-                            {
-                                url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/AtCoderLibrary%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.md',
-                                title: 'AtCoderLibrary入门教程',
-                                date: '2025年4月19日',
-                                excerpt: '本文详细介绍了C++ AtCoderLibrary库。'
-                            }
-                        ],
-                        '最近更新': [
-                            {
-                                title: 'DeepSeek | 中文官网、DeepSeek网页版、API 调用和本地部署教程 | 最全使用指南~ 【2025年4月更新】',
-                                url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/Deepseek-1.md',
-                                date: '2025年4月18日',
-                                excerpt: '本文详细介绍了DeepSeek的官方资源获取途径、网页版使用方法、API调用指南以及本地部署教程，是最全面的DeepSeek使用指南。'
-                            },
-                            {
-                                url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/N%E5%80%8D%E7%BB%8F%E9%AA%8C.md',
-                                title: 'N倍经验',
-                                date: '2025年4月19日',
-                                excerpt: '本文详细介绍了洛谷一些多倍经验的题。'
-                            },
-                            {
-                                url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/%E9%82%A3%E4%BA%9B%E8%93%9D%E9%A2%98%E5%8F%8A%E4%BB%A5%E4%B8%8A%E7%9A%84%E6%B0%B4%E9%A2%98.md',
-                                title: '那些蓝题及以上的水题',
-                                date: '2025年4月19日',
-                                excerpt: '本文详细介绍了蓝题及以上的水题。'
-                            },
-                            {
-                                url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/AtCoderLibrary%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.md',
-                                title: 'AtCoderLibrary入门教程',
-                                date: '2025年4月19日',
-                                excerpt: '本文详细介绍了C++ AtCoderLibrary库。'
-                            }
-                        ],
-                        '教程': [
-                            {
-                                title: 'DeepSeek | 中文官网、DeepSeek网页版、API 调用和本地部署教程 | 最全使用指南~ 【2025年4月更新】',
-                                url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/Deepseek-1.md',
-                                date: '2025年4月18日',
-                                excerpt: '本文详细介绍了DeepSeek的官方资源获取途径、网页版使用方法、API调用指南以及本地部署教程，是最全面的DeepSeek使用指南。'
-                            },
-                            {
-                                url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/AtCoderLibrary%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.md',
-                                title: 'AtCoderLibrary入门教程',
-                                date: '2025年4月19日',
-                                excerpt: '本文详细介绍了C++ AtCoderLibrary库。'
-                            }
-                        ],
-                        '学术': [
-                            {
-                                url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/N%E5%80%8D%E7%BB%8F%E9%AA%8C.md',
-                                title: 'N倍经验',
-                                date: '2025年4月19日',
-                                excerpt: '本文详细介绍了洛谷一些多倍经验的题。'
-                            },
-                            {
-                                url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/AtCoderLibrary%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.md',
-                                title: 'AtCoderLibrary入门教程',
-                                date: '2025年4月19日',
-                                excerpt: '本文详细介绍了C++ AtCoderLibrary库。'
-                            },
-                            {
-                                url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/%E9%82%A3%E4%BA%9B%E8%93%9D%E9%A2%98%E5%8F%8A%E4%BB%A5%E4%B8%8A%E7%9A%84%E6%B0%B4%E9%A2%98.md',
-                                title: '那些蓝题及以上的水题',
-                                date: '2025年4月19日',
-                                excerpt: '本文详细介绍了蓝题及以上的水题。'
-                            }
-                        ],
-                        '娱乐': [
-                            {
-                                title: 'N倍经验',
-                                url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/N%E5%80%8D%E7%BB%8F%E9%AA%8C.md',
-                                date: '2025年4月19日',
-                                excerpt: '本文详细介绍了洛谷一些多倍经验的题。'
-                            },
-                            {
-                                url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/%E9%82%A3%E4%BA%9B%E8%93%9D%E9%A2%98%E5%8F%8A%E4%BB%A5%E4%B8%8A%E7%9A%84%E6%B0%B4%E9%A2%98.md',
-                                title: '那些蓝题及以上的水题',
-                                date: '2025年4月19日',
-                                excerpt: '本文详细介绍了蓝题及以上的水题。'
-                            }
-                        ],
-                        '合集': [
-                            {
-                                title: 'AI技术合集',
-                                articles: [
-                                    {
-                                        title: 'DeepSeek | 中文官网、DeepSeek网页版、API 调用和本地部署教程 | 最全使用指南~ 【2025年4月更新】',
-                                        url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/Deepseek-1.md',
-                                        date: '2025年4月18日',
-                                        excerpt: '本文详细介绍了DeepSeek的官方资源获取途径、网页版使用方法、API调用指南以及本地部署教程，是最全面的DeepSeek使用指南。'
-                                    }
-                                ],
-                                description: '关于人工智能和DeepSeek的相关技术文章合集',
-                                date: '2025年4月19日更新'
-                            },
-                            {
-                                title: '原创合集',
-                                articles: [
-                                    {
-                                        title: 'N倍经验',
-                                        url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/N%E5%80%8D%E7%BB%8F%E9%AA%8C.md',
-                                        date: '2025年4月19日',
-                                        excerpt: '本文详细介绍了洛谷一些多倍经验的题。'
-                                    },
-                                    {
-                                        url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/%E9%82%A3%E4%BA%9B%E8%93%9D%E9%A2%98%E5%8F%8A%E4%BB%A5%E4%B8%8A%E7%9A%84%E6%B0%B4%E9%A2%98.md',
-                                        title: '那些蓝题及以上的水题',
-                                        date: '2025年4月19日',
-                                        excerpt: '本文详细介绍了蓝题及以上的水题。'
-                                    }
-                                ],
-                                description: '原创文章合集，请勿抄袭',
-                                date: '2025年4月19日更新'
-                            },
-                            {
-                                title: 'C++ 合集',
-                                articles: [
-                                    {
-                                        title: 'N倍经验',
-                                        url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/N%E5%80%8D%E7%BB%8F%E9%AA%8C.md',
-                                        date: '2025年4月19日',
-                                        excerpt: '本文详细介绍了洛谷一些多倍经验的题。'
-                                    },
-                                    {
-                                        url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/AtCoderLibrary%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.md',
-                                        title: 'AtCoderLibrary入门教程',
-                                        date: '2025年4月19日',
-                                        excerpt: '本文详细介绍了C++ AtCoderLibrary库。'
-                                    },
-                                    {
-                                        url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/%E9%82%A3%E4%BA%9B%E8%93%9D%E9%A2%98%E5%8F%8A%E4%BB%A5%E4%B8%8A%E7%9A%84%E6%B0%B4%E9%A2%98.md',
-                                        title: '那些蓝题及以上的水题',
-                                        date: '2025年4月19日',
-                                        excerpt: '本文详细介绍了蓝题及以上的水题。'
-                                    }
-                                ],
-                                description: '关于C++的文章合集',
-                                date: '2025年4月19日更新'
-                            }
-                        ]
-                    };
+            // 模拟异步加载文章数据
+            setTimeout(() => {
+                const mockArticles = {
+                    '推荐阅读': [
+                        {
+                            title: 'DeepSeek | 中文官网、DeepSeek网页版、API 调用和本地部署教程 | 最全使用指南~ 【2025年4月更新】',
+                            url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/Deepseek-1.md',
+                            date: '2025年4月18日',
+                            excerpt: '本文详细介绍了DeepSeek的官方资源获取途径、网页版使用方法、API调用指南以及本地部署教程，是最全面的DeepSeek使用指南。'
+                        },
+                        {
+                            url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/N%E5%80%8D%E7%BB%8F%E9%AA%8C.md',
+                            title: 'N倍经验',
+                            date: '2025年4月19日',
+                            excerpt: '本文详细介绍了洛谷一些多倍经验的题。'
+                        },
+                        {
+                            url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/AtCoderLibrary%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.md',
+                            title: 'AtCoderLibrary入门教程',
+                            date: '2025年4月19日',
+                            excerpt: '本文详细介绍了C++ AtCoderLibrary库。'
+                        }
+                    ],
+                    '最近更新': [
+                        {
+                            title: 'DeepSeek | 中文官网、DeepSeek网页版、API 调用和本地部署教程 | 最全使用指南~ 【2025年4月更新】',
+                            url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/Deepseek-1.md',
+                            date: '2025年4月18日',
+                            excerpt: '本文详细介绍了DeepSeek的官方资源获取途径、网页版使用方法、API调用指南以及本地部署教程，是最全面的DeepSeek使用指南。'
+                        },
+                        {
+                            url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/N%E5%80%8D%E7%BB%8F%E9%AA%8C.md',
+                            title: 'N倍经验',
+                            date: '2025年4月19日',
+                            excerpt: '本文详细介绍了洛谷一些多倍经验的题。'
+                        },
+                        {
+                            url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/%E9%82%A3%E4%BA%9B%E8%93%9D%E9%A2%98%E5%8F%8A%E4%BB%A5%E4%B8%8A%E7%9A%84%E6%B0%B4%E9%A2%98.md',
+                            title: '那些蓝题及以上的水题',
+                            date: '2025年4月19日',
+                            excerpt: '本文详细介绍了蓝题及以上的水题。'
+                        },
+                        {
+                            url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/AtCoderLibrary%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.md',
+                            title: 'AtCoderLibrary入门教程',
+                            date: '2025年4月19日',
+                            excerpt: '本文详细介绍了C++ AtCoderLibrary库。'
+                        }
+                    ],
+                    '教程': [
+                        {
+                            title: 'DeepSeek | 中文官网、DeepSeek网页版、API 调用和本地部署教程 | 最全使用指南~ 【2025年4月更新】',
+                            url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/Deepseek-1.md',
+                            date: '2025年4月18日',
+                            excerpt: '本文详细介绍了DeepSeek的官方资源获取途径、网页版使用方法、API调用指南以及本地部署教程，是最全面的DeepSeek使用指南。'
+                        },
+                        {
+                            url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/AtCoderLibrary%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.md',
+                            title: 'AtCoderLibrary入门教程',
+                            date: '2025年4月19日',
+                            excerpt: '本文详细介绍了C++ AtCoderLibrary库。'
+                        }
+                    ],
+                    '学术': [
+                        {
+                            url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/N%E5%80%8D%E7%BB%8F%E9%AA%8C.md',
+                            title: 'N倍经验',
+                            date: '2025年4月19日',
+                            excerpt: '本文详细介绍了洛谷一些多倍经验的题。'
+                        },
+                        {
+                            url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/AtCoderLibrary%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B.md',
+                            title: 'AtCoderLibrary入门教程',
+                            date: '2025年4月19日',
+                            excerpt: '本文详细介绍了C++ AtCoderLibrary库。'
+                        },
+                        {
+                            url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/%E9%82%A3%E4%BA%9B%E8%93%9D%E9%A2%98%E5%8F%8A%E4%BB%A5%E4%B8%8A%E7%9A%84%E6%B0%B4%E9%A2%98.md',
+                            title: '那些蓝题及以上的水题',
+                            date: '2025年4月19日',
+                            excerpt: '本文详细介绍了蓝题及以上的水题。'
+                        }
+                    ],
+                    '娱乐': [
+                        {
+                            title: 'N倍经验',
+                            url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/N%E5%80%8D%E7%BB%8F%E9%AA%8C.md',
+                            date: '2025年4月19日',
+                            excerpt: '本文详细介绍了洛谷一些多倍经验的题。'
+                        },
+                        {
+                            url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/%E9%82%A3%E4%BA%9B%E8%93%9D%E9%A2%98%E5%8F%8A%E4%BB%A5%E4%B8%8A%E7%9A%84%E6%B0%B4%E9%A2%98.md',
+                            title: '那些蓝题及以上的水题',
+                            date: '2025年4月19日',
+                            excerpt: '本文详细介绍了蓝题及以上的水题。'
+                        }
+                    ],
+                    '合集': [
+                        {
+                            title: 'AI技术合集',
+                            articles: [
+                                {
+                                    title: 'DeepSeek | 中文官网、DeepSeek网页版、API 调用和本地部署教程 | 最全使用指南~ 【2025年4月更新】',
+                                    url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/Deepseek-1.md',
+                                    date: '2025年4月18日',
+                                    excerpt: '本文详细介绍了DeepSeek的官方资源获取途径、网页版使用方法、API调用指南以及本地部署教程，是最全面的DeepSeek使用指南。'
+                                }
+                            ],
+                            description: '关于人工智能和DeepSeek的相关技术文章合集',
+                            date: '2025年4月19日更新'
+                        },
+                        {
+                            title: '原创合集',
+                            articles: [
+                                {
+                                    title: 'N倍经验',
+                                    url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/N%E5%80%8D%E7%BB%8F%E9%AA%8C.md',
+                                    date: '2025年4月19日',
+                                    excerpt: '本文详细介绍了洛谷一些多倍经验的题。'
+                                },
+                                {
+                                    url: 'https://hub.gitmirror.com/https://raw.githubusercontent.com/zhangyimin12345/zhangyimin12345.github.io/main/%E9%82%A3%E4%BA%9B%E8%93%9D%E9%A2%98%E5%8F%8A%E4%BB%A5%E4%B8%8A%E7%9A%84%E6%B0%B4%E9%A2%98.md',
+                                    title: '那些蓝题及以上的水题',
+                                    date: '2025年4月19日',
+                                    excerpt: '本文详细介绍了蓝题及以上的水题。'
+                                }
+                            ],
+                            description: '原创文章合集，请勿抄袭',
+                            date: '2025年4月19日更新'
+                        },
+                        {
+                            title: 'CPlusPlus-Notes-Codes',
+                            articles: mockResults.filter(item => item.title.includes('_C++的')).map(item => ({
+                                title: item.title,
+                                url: item.html_url,
+                                date: '2025年4月21日',
+                                excerpt: `C++教程: ${item.title}`
+                            })),
+                            description: 'C++编程语言学习笔记和代码示例合集',
+                            date: '2025年4月21日更新'
+                        }
+                    ]
+                };
 
-                    let html = '';
-                    for (const [tag, articles] of Object.entries(mockArticles)) {
-                        html += `
+                let html = '';
+                for (const [tag, articles] of Object.entries(mockArticles)) {
+                    html += `
                 <div class="tag-section">
                     <div class="tag-header">
                         <div class="tag-title">${tag}</div>
@@ -1491,8 +2069,8 @@
                     </div>
                     <div class="tag-articles">
                         ${articles.map(item => {
-                            if (tag === '合集') {
-                                return `
+                        if (tag === '合集') {
+                            return `
                                 <div class="collection-card">
                                     <div class="collection-title">${item.title}</div>
                                     <div class="article-date">${item.date}</div>
@@ -1509,505 +2087,561 @@
                                         `).join('')}
                                     </div>
                                 </div>`;
-                            } else {
-                                return `
+                        } else {
+                            return `
                                 <div class="article-card" data-url="${item.url}" data-title="${item.title}">
                                     <div class="article-title">${item.title}</div>
                                     ${item.collection ? `<div class="article-collection"><i class="fas fa-folder"></i> ${item.collection}</div>` : ''}
                                     <div class="article-date">${item.date}</div>
                                     <div class="article-excerpt">${item.excerpt}</div>
                                 </div>`;
-                            }
-                        }).join('')}
+                        }
+                    }).join('')}
                     </div>
                 </div>`;
-                    }
-
-                    articlesSquare.innerHTML = html;
-
-                    // 添加点击事件
-                    document.querySelectorAll('.article-card, .collection-article').forEach(card => {
-                        card.addEventListener('click', function () {
-                            const url = this.getAttribute('data-url');
-                            const title = this.getAttribute('data-title');
-                            loadAndRenderDoc(url, title);
-                        });
-                    });
-
-                    // 设置动画延迟
-                    document.querySelectorAll('.article-card, .collection-card').forEach((card, index) => {
-                        card.style.animationDelay = `${index * 0.1}s`;
-                    });
-                }, 500);
-            }
-
-            // 根据标签获取对应的CSS类
-            function getTagClass(tag) {
-                switch (tag) {
-                    case '推荐阅读': return 'tag-recommended';
-                    case '最近更新': return 'tag-recent';
-                    case '教程': return 'tag-tutorial';
-                    case '学术': return 'tag-academic';
-                    case '娱乐': return 'tag-entertainment';
-                    case '原创': return 'tag-yuanchuang';
-                    default: return 'NaN';
                 }
-            }
 
-            // 绑定文章广场按钮点击事件
-            articlesSquareButton.addEventListener('click', showArticlesSquare);
-        });
-    </script>
+                articlesSquare.innerHTML = html;
 
-    <!-- 彩带背景-->
-    <script async="" type="text/javascript">
-        (function (name, factory) {
-            if (typeof window === "object") {
-                window[name] = factory();
-            }
-        })("Ribbons", function () {
-            var _w = window, _b = document.body, _d = document.documentElement;
-            var random = function () {
-                if (arguments.length === 1) {
-                    if (Array.isArray(arguments[0])) {
-                        var index = Math.round(random(0, arguments[0].length - 1));
-                        return arguments[0][index];
-                    }
-                    return random(0, arguments[0]);
-                } else if (arguments.length === 2) {
-                    return Math.random() * (arguments[1] - arguments[0]) + arguments[0];
-                }
-                return 0;
-            };
-            var screenInfo = function (e) {
-                var width = Math.max(0, _w.innerWidth || _d.clientWidth || _b.clientWidth || 0),
-                    height = Math.max(0, _w.innerHeight || _d.clientHeight || _b.clientHeight || 0),
-                    scrollx = Math.max(0, _w.pageXOffset || _d.scrollLeft || _b.scrollLeft || 0) - (_d.clientLeft || 0),
-                    scrolly = Math.max(0, _w.pageYOffset || _d.scrollTop || _b.scrollTop || 0) - (_d.clientTop || 0);
-                return {
-                    width: width,
-                    height: height,
-                    ratio: width / height,
-                    centerx: width / 2,
-                    centery: height / 2,
-                    scrollx: scrollx,
-                    scrolly: scrolly
-                };
-            };
-            var mouseInfo = function (e) {
-                var screen = screenInfo(e), mousex = e ? Math.max(0, e.pageX || e.clientX || 0) : 0,
-                    mousey = e ? Math.max(0, e.pageY || e.clientY || 0) : 0;
-                return {
-                    mousex: mousex,
-                    mousey: mousey,
-                    centerx: mousex - screen.width / 2,
-                    centery: mousey - screen.height / 2
-                };
-            };
-            var Point = function (x, y) {
-                this.x = 0;
-                this.y = 0;
-                this.set(x, y);
-            };
-            Point.prototype = {
-                constructor: Point, set: function (x, y) {
-                    this.x = x || 0;
-                    this.y = y || 0;
-                }, copy: function (point) {
-                    this.x = point.x || 0;
-                    this.y = point.y || 0;
-                    return this;
-                }, multiply: function (x, y) {
-                    this.x *= x || 1;
-                    this.y *= y || 1;
-                    return this;
-                }, divide: function (x, y) {
-                    this.x /= x || 1;
-                    this.y /= y || 1;
-                    return this;
-                }, add: function (x, y) {
-                    this.x += x || 0;
-                    this.y += y || 0;
-                    return this;
-                }, subtract: function (x, y) {
-                    this.x -= x || 0;
-                    this.y -= y || 0;
-                    return this;
-                }, clampX: function (min, max) {
-                    this.x = Math.max(min, Math.min(this.x, max));
-                    return this;
-                }, clampY: function (min, max) {
-                    this.y = Math.max(min, Math.min(this.y, max));
-                    return this;
-                }, flipX: function () {
-                    this.x *= -1;
-                    return this;
-                }, flipY: function () {
-                    this.y *= -1;
-                    return this;
-                }
-            };
-            var Factory = function (options) {
-                this._canvas = null;
-                this._context = null;
-                this._sto = null;
-                this._width = 0;
-                this._height = 0;
-                this._scroll = 0;
-                this._ribbons = [];
-                this._options = {
-                    colorSaturation: "80%",
-                    colorBrightness: "60%",
-                    colorAlpha: 0.65,
-                    colorCycleSpeed: 6,
-                    verticalPosition: "center",
-                    horizontalSpeed: 200,
-                    ribbonCount: 4,
-                    strokeSize: 0,
-                    parallaxAmount: -0.5,
-                    animateSections: true
-                };
-                this._onDraw = this._onDraw.bind(this);
-                this._onResize = this._onResize.bind(this);
-                this._onScroll = this._onScroll.bind(this);
-                this.setOptions(options);
-                this.init();
-            };
-            Factory.prototype = {
-                constructor: Factory, setOptions: function (options) {
-                    if (typeof options === "object") {
-                        for (var key in options) {
-                            if (options.hasOwnProperty(key)) {
-                                this._options[key] = options[key];
-                            }
-                        }
-                    }
-                }, init: function () {
-                    try {
-                        this._canvas = document.createElement("canvas");
-                        this._canvas.style["display"] = "block";
-                        this._canvas.style["position"] = "fixed";
-                        this._canvas.style["margin"] = "0";
-                        this._canvas.style["padding"] = "0";
-                        this._canvas.style["border"] = "0";
-                        this._canvas.style["outline"] = "0";
-                        this._canvas.style["left"] = "0";
-                        this._canvas.style["top"] = "0";
-                        this._canvas.style["width"] = "100%";
-                        this._canvas.style["height"] = "100%";
-                        this._canvas.style["z-index"] = "-1";
-                        this._canvas.style["background-color"] = "#ffffff";
-                        this._canvas.id = "bgCanvas";
-                        this._onResize();
-                        this._context = this._canvas.getContext("2d");
-                        this._context.clearRect(0, 0, this._width, this._height);
-                        this._context.globalAlpha = this._options.colorAlpha;
-                        window.addEventListener("resize", this._onResize);
-                        window.addEventListener("scroll", this._onScroll);
-                        var body_ = document.getElementsByTagName('body')[0];
-                        body_.appendChild(this._canvas);
-                    } catch (e) {
-                        console.warn("Canvas Context Error: " + e.toString());
-                        return;
-                    }
-                    this._onDraw();
-                }, addRibbon: function () {
-                    var dir = Math.round(random(1, 9)) > 5 ? "right" : "left", stop = 1000, hide = 200, min = 0 - hide,
-                        max = this._width + hide, movex = 0, movey = 0, startx = dir === "right" ? min : max,
-                        starty = Math.round(random(0, this._height));
-                    if (/^(top|min)$/i.test(this._options.verticalPosition)) {
-                        starty = 0 + hide;
-                    } else if (/^(middle|center)$/i.test(this._options.verticalPosition)) {
-                        starty = this._height / 2;
-                    } else if (/^(bottom|max)$/i.test(this._options.verticalPosition)) {
-                        starty = this._height - hide;
-                    }
-                    var ribbon = [], point1 = new Point(startx, starty), point2 = new Point(startx, starty), point3 = null,
-                        color = Math.round(random(0, 360)), delay = 0;
-                    while (true) {
-                        if (stop <= 0) break;
-                        stop--;
-                        movex = Math.round((Math.random() * 1 - 0.2) * this._options.horizontalSpeed);
-                        movey = Math.round((Math.random() * 1 - 0.5) * (this._height * 0.25));
-                        point3 = new Point();
-                        point3.copy(point2);
-                        if (dir === "right") {
-                            point3.add(movex, movey);
-                            if (point2.x >= max) break;
-                        } else if (dir === "left") {
-                            point3.subtract(movex, movey);
-                            if (point2.x <= min) break;
-                        }
-                        ribbon.push({
-                            point1: new Point(point1.x, point1.y),
-                            point2: new Point(point2.x, point2.y),
-                            point3: point3,
-                            color: color,
-                            delay: delay,
-                            dir: dir,
-                            alpha: 0,
-                            phase: 0
-                        });
-                        point1.copy(point2);
-                        point2.copy(point3);
-                        delay += 4;
-                        color += this._options.colorCycleSpeed;
-                    }
-                    this._ribbons.push(ribbon);
-                }, _drawRibbonSection: function (section) {
-                    if (section) {
-                        if (section.phase >= 1 && section.alpha <= 0) {
-                            return true;
-                        }
-                        if (section.delay <= 0) {
-                            section.phase += 0.02;
-                            section.alpha = Math.sin(section.phase) * 1;
-                            section.alpha = section.alpha <= 0 ? 0 : section.alpha;
-                            section.alpha = section.alpha >= 1 ? 1 : section.alpha;
-                            if (this._options.animateSections) {
-                                var mod = Math.sin(1 + section.phase * Math.PI / 2) * 0.1;
-                                if (section.dir === "right") {
-                                    section.point1.add(mod, 0);
-                                    section.point2.add(mod, 0);
-                                    section.point3.add(mod, 0);
-                                } else {
-                                    section.point1.subtract(mod, 0);
-                                    section.point2.subtract(mod, 0);
-                                    section.point3.subtract(mod, 0);
-                                }
-                                section.point1.add(0, mod);
-                                section.point2.add(0, mod);
-                                section.point3.add(0, mod);
-                            }
+                // 添加点击事件
+                document.querySelectorAll('.article-card, .collection-article').forEach(card => {
+                    card.addEventListener('click', function (e) {
+                        const url = this.getAttribute('data-url');
+                        const title = this.getAttribute('data-title');
+
+                        if (e.ctrlKey || e.metaKey) {
+                            e.preventDefault();
+                            loadAndRenderDocNewWay(url, title);
                         } else {
-                            section.delay -= 0.5;
+                            loadAndRenderDoc(url, title);
                         }
-                        var s = this._options.colorSaturation, l = this._options.colorBrightness,
-                            c = "hsla(" + section.color + ", " + s + ", " + l + ", " + section.alpha + " )";
-                        this._context.save();
-                        if (this._options.parallaxAmount !== 0) {
-                            this._context.translate(0, this._scroll * this._options.parallaxAmount);
-                        }
-                        this._context.beginPath();
-                        this._context.moveTo(section.point1.x, section.point1.y);
-                        this._context.lineTo(section.point2.x, section.point2.y);
-                        this._context.lineTo(section.point3.x, section.point3.y);
-                        this._context.fillStyle = c;
-                        this._context.fill();
-                        if (this._options.strokeSize > 0) {
-                            this._context.lineWidth = this._options.strokeSize;
-                            this._context.strokeStyle = c;
-                            this._context.lineCap = "round";
-                            this._context.stroke();
-                        }
-                        this._context.restore();
-                    }
-                    return false;
-                }, _onDraw: function () {
-                    for (var i = 0, t = this._ribbons.length; i < t; ++i) {
-                        if (!this._ribbons[i]) {
-                            this._ribbons.splice(i, 1);
-                        }
-                    }
-                    this._context.clearRect(0, 0, this._width, this._height);
-                    for (var a = 0; a < this._ribbons.length; ++a) {
-                        var ribbon = this._ribbons[a], numSections = ribbon.length, numDone = 0;
-                        for (var b = 0; b < numSections; ++b) {
-                            if (this._drawRibbonSection(ribbon[b])) {
-                                numDone++;
-                            }
-                        }
-                        if (numDone >= numSections) {
-                            this._ribbons[a] = null;
-                        }
-                    }
-                    if (this._ribbons.length < this._options.ribbonCount) {
-                        this.addRibbon();
-                    }
-                    requestAnimationFrame(this._onDraw);
-                }, _onResize: function (e) {
-                    var screen = screenInfo(e);
-                    this._width = screen.width;
-                    this._height = screen.height;
-                    if (this._canvas) {
-                        this._canvas.width = this._width;
-                        this._canvas.height = this._height;
-                        if (this._context) {
-                            this._context.globalAlpha = this._options.colorAlpha;
-                        }
-                    }
-                }, _onScroll: function (e) {
-                    var screen = screenInfo(e);
-                    this._scroll = screen.scrolly;
-                }
-            };
-            return Factory;
-        });
-        new Ribbons();
-    </script>
-
-    <!--网格动态背景-->
-    <script type="text/javascript">
-        !function () {
-            //封装方法，压缩之后减少文件大小
-            function get_attribute(node, attr, default_value) {
-                return node.getAttribute(attr) || default_value;
-            }
-
-            //封装方法，压缩之后减少文件大小
-            function get_by_tagname(name) {
-                return document.getElementsByTagName(name);
-            }
-
-            //获取配置参数
-            function get_config_option() {
-                var scripts = get_by_tagname("script"),
-                    script_len = scripts.length,
-                    script = scripts[script_len - 1]; //当前加载的script
-                return {
-                    l: script_len, //长度，用于生成id用
-                    z: get_attribute(script, "zIndex", -1), //z-index
-                    o: get_attribute(script, "opacity", 0.8), //opacity
-                    c: get_attribute(script, "color", "255,255,255"), //color
-                    n: get_attribute(script, "count", 350) //count
-                };
-            }
-
-            //设置canvas的高宽
-            function set_canvas_size() {
-                canvas_width = the_canvas.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
-                    canvas_height = the_canvas.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-            }
-
-            //绘制过程
-            function draw_canvas() {
-                context.clearRect(0, 0, canvas_width, canvas_height);
-                //随机的线条和当前位置联合数组
-                var e, i, d, x_dist, y_dist, dist; //临时节点
-                //遍历处理每一个点
-                random_points.forEach(function (r, idx) {
-                    r.x += r.xa,
-                        r.y += r.ya, //移动
-                        r.xa *= r.x > canvas_width || r.x < 0 ? -1 : 1,
-                        r.ya *= r.y > canvas_height || r.y < 0 ? -1 : 1, //碰到边界，反向反弹
-                        context.fillRect(r.x - 0.5, r.y - 0.5, 1, 1); //绘制一个宽高为1的点
-                    //从下一个点开始
-                    for (i = idx + 1; i < all_array.length; i++) {
-                        e = all_array[i];
-                        // 当前点存在
-                        if (null !== e.x && null !== e.y) {
-                            x_dist = r.x - e.x; //x轴距离 l
-                            y_dist = r.y - e.y; //y轴距离 n
-                            dist = x_dist * x_dist + y_dist * y_dist; //总距离, m
-
-                            dist < e.max && (e === current_point && dist >= e.max / 2 && (r.x -= 0.03 * x_dist, r.y -= 0.03 * y_dist), //靠近的时候加速
-                                d = (e.max - dist) / e.max,
-                                context.beginPath(),
-                                context.lineWidth = d / 2,
-                                context.strokeStyle = "#000000",
-                                context.moveTo(r.x, r.y),
-                                context.lineTo(e.x, e.y),
-                                context.stroke());
-                        }
-                    }
-                }), frame_func(draw_canvas);
-            }
-
-            //创建画布，并添加到body中
-            var the_canvas = document.createElement("canvas"), //画布
-                config = get_config_option(), //配置
-                canvas_id = "c_n" + config.l, //canvas id
-                context = the_canvas.getContext("2d"), canvas_width, canvas_height,
-                frame_func = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (func) {
-                    window.setTimeout(func, 1000 / 40);
-                }, random = Math.random,
-                current_point = {
-                    x: null, //当前鼠标x
-                    y: null, //当前鼠标y
-                    max: 20000 // 圈半径的平方
-                },
-                all_array;
-            the_canvas.id = canvas_id;
-            the_canvas.style.cssText = "position:fixed;top:0;left:0;z-index:" + config.z + ";opacity:" + config.o;
-            get_by_tagname("body")[0].appendChild(the_canvas);
-
-            //初始化画布大小
-            set_canvas_size();
-            window.onresize = set_canvas_size;
-            //当时鼠标位置存储，离开的时候，释放当前位置信息
-            window.onmousemove = function (e) {
-                e = e || window.event;
-                current_point.x = e.clientX;
-                current_point.y = e.clientY;
-            }, window.onmouseout = function () {
-                current_point.x = null;
-                current_point.y = null;
-            };
-            //随机生成config.n条线位置信息
-            for (var random_points = [], i = 0; config.n > i; i++) {
-                var x = random() * canvas_width, //随机位置
-                    y = random() * canvas_height,
-                    xa = 2 * random() - 1, //随机运动方向
-                    ya = 2 * random() - 1;
-                // 随机点
-                random_points.push({
-                    x: x,
-                    y: y,
-                    xa: xa,
-                    ya: ya,
-                    max: 6000 //沾附距离
+                    });
                 });
-            }
-            all_array = random_points.concat([current_point]);
-            //0.1秒后绘制
-            setTimeout(function () {
-                draw_canvas();
-            }, 100);
-        }();
 
-        // 加载动画控制
-        function showLoader() {
-            const loader = document.getElementById('loader');
-            loader.style.display = 'flex';
-            loader.style.opacity = '1';
+                // 设置动画延迟
+                document.querySelectorAll('.article-card, .collection-card').forEach((card, index) => {
+                    card.style.animationDelay = `${index * 0.1}s`;
+                });
+            }, 500);
         }
 
-        function fadeOutLoader() {
-            const loader = document.getElementById('loader');
-            loader.style.opacity = '0';
-            setTimeout(() => {
-                loader.style.display = 'none';
-            }, 100);
+        // 根据标签获取对应的CSS类
+        function getTagClass(tag) {
+            switch (tag) {
+                case '推荐阅读': return 'tag-recommended';
+                case '最近更新': return 'tag-recent';
+                case '教程': return 'tag-tutorial';
+                case '学术': return 'tag-academic';
+                case '娱乐': return 'tag-entertainment';
+                case '原创': return 'tag-yuanchuang';
+                default: return 'NaN';
+            }
         }
 
-        // 页面加载完成后隐藏加载动画
-        window.addEventListener('load', function () {
-            setTimeout(fadeOutLoader, 100); // 延迟500毫秒隐藏以确保所有内容加载完成
-        });
+        // 绑定文章广场按钮点击事件
+        articlesSquareButton.addEventListener('click', showArticlesSquare);
+    });
 
-        window.myloader = { show: showLoader, hide: fadeOutLoader };
-    </script>
+    // 添加时钟功能
+    function updateClock() {
+        const now = new Date();
+        // const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
 
-    <script>
-        // 添加滚动监听
-        window.addEventListener('scroll', function () {
-            const docContent = document.getElementById('doc-content');
-            if (docContent) {
-                const docHeight = docContent.scrollHeight - docContent.clientHeight;
-                const scrolled = (docContent.scrollTop / docHeight) * 100;
-                document.querySelector('.progress-bar').style.width = scrolled + '%';
+        document.getElementById('clock').textContent =
+            `${month}-${day} ${hours}:${minutes}:${seconds}`;
+        //${year}-
+    }
+
+    // 初始化时钟并每秒更新
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // 加载动画控制
+    function showLoader() {
+        const loader = document.getElementById('loader');
+        loader.style.display = 'flex';
+        loader.style.opacity = '1';
+    }
+
+    function fadeOutLoader() {
+        const loader = document.getElementById('loader');
+        loader.style.opacity = '0';
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 100);
+    }
+
+    // 页面加载完成后隐藏加载动画
+    window.addEventListener('load', function () {
+        setTimeout(fadeOutLoader, 100); // 延迟500毫秒隐藏以确保所有内容加载完成
+    });
+
+    window.myloader = { show: showLoader, hide: fadeOutLoader };
+</script>
+
+<!-- 彩带背景-->
+<script async="" type="text/javascript">
+    (function (name, factory) {
+        if (typeof window === "object") {
+            window[name] = factory();
+        }
+    })("Ribbons", function () {
+        var _w = window, _b = document.body, _d = document.documentElement;
+        var random = function () {
+            if (arguments.length === 1) {
+                if (Array.isArray(arguments[0])) {
+                    var index = Math.round(random(0, arguments[0].length - 1));
+                    return arguments[0][index];
+                }
+                return random(0, arguments[0]);
+            } else if (arguments.length === 2) {
+                return Math.random() * (arguments[1] - arguments[0]) + arguments[0];
             }
-        });
+            return 0;
+        };
+        var screenInfo = function (e) {
+            var width = Math.max(0, _w.innerWidth || _d.clientWidth || _b.clientWidth || 0),
+                height = Math.max(0, _w.innerHeight || _d.clientHeight || _b.clientHeight || 0),
+                scrollx = Math.max(0, _w.pageXOffset || _d.scrollLeft || _b.scrollLeft || 0) - (_d.clientLeft || 0),
+                scrolly = Math.max(0, _w.pageYOffset || _d.scrollTop || _b.scrollTop || 0) - (_d.clientTop || 0);
+            return {
+                width: width,
+                height: height,
+                ratio: width / height,
+                centerx: width / 2,
+                centery: height / 2,
+                scrollx: scrollx,
+                scrolly: scrolly
+            };
+        };
+        var mouseInfo = function (e) {
+            var screen = screenInfo(e), mousex = e ? Math.max(0, e.pageX || e.clientX || 0) : 0,
+                mousey = e ? Math.max(0, e.pageY || e.clientY || 0) : 0;
+            return {
+                mousex: mousex,
+                mousey: mousey,
+                centerx: mousex - screen.width / 2,
+                centery: mousey - screen.height / 2
+            };
+        };
+        var Point = function (x, y) {
+            this.x = 0;
+            this.y = 0;
+            this.set(x, y);
+        };
+        Point.prototype = {
+            constructor: Point, set: function (x, y) {
+                this.x = x || 0;
+                this.y = y || 0;
+            }, copy: function (point) {
+                this.x = point.x || 0;
+                this.y = point.y || 0;
+                return this;
+            }, multiply: function (x, y) {
+                this.x *= x || 1;
+                this.y *= y || 1;
+                return this;
+            }, divide: function (x, y) {
+                this.x /= x || 1;
+                this.y /= y || 1;
+                return this;
+            }, add: function (x, y) {
+                this.x += x || 0;
+                this.y += y || 0;
+                return this;
+            }, subtract: function (x, y) {
+                this.x -= x || 0;
+                this.y -= y || 0;
+                return this;
+            }, clampX: function (min, max) {
+                this.x = Math.max(min, Math.min(this.x, max));
+                return this;
+            }, clampY: function (min, max) {
+                this.y = Math.max(min, Math.min(this.y, max));
+                return this;
+            }, flipX: function () {
+                this.x *= -1;
+                return this;
+            }, flipY: function () {
+                this.y *= -1;
+                return this;
+            }
+        };
+        var Factory = function (options) {
+            this._canvas = null;
+            this._context = null;
+            this._sto = null;
+            this._width = 0;
+            this._height = 0;
+            this._scroll = 0;
+            this._ribbons = [];
+            this._options = {
+                colorSaturation: "80%",
+                colorBrightness: "60%",
+                colorAlpha: 0.65,
+                colorCycleSpeed: 6,
+                verticalPosition: "center",
+                horizontalSpeed: 200,
+                ribbonCount: 4,
+                strokeSize: 0,
+                parallaxAmount: -0.5,
+                animateSections: true
+            };
+            this._onDraw = this._onDraw.bind(this);
+            this._onResize = this._onResize.bind(this);
+            this._onScroll = this._onScroll.bind(this);
+            this.setOptions(options);
+            this.init();
+        };
+        Factory.prototype = {
+            constructor: Factory, setOptions: function (options) {
+                if (typeof options === "object") {
+                    for (var key in options) {
+                        if (options.hasOwnProperty(key)) {
+                            this._options[key] = options[key];
+                        }
+                    }
+                }
+            }, init: function () {
+                try {
+                    this._canvas = document.createElement("canvas");
+                    this._canvas.style["display"] = "block";
+                    this._canvas.style["position"] = "fixed";
+                    this._canvas.style["margin"] = "0";
+                    this._canvas.style["padding"] = "0";
+                    this._canvas.style["border"] = "0";
+                    this._canvas.style["outline"] = "0";
+                    this._canvas.style["left"] = "0";
+                    this._canvas.style["top"] = "0";
+                    this._canvas.style["width"] = "100%";
+                    this._canvas.style["height"] = "100%";
+                    this._canvas.style["z-index"] = "-1";
+                    this._canvas.style["background-color"] = "#ffffff";
+                    this._canvas.id = "bgCanvas";
+                    this._onResize();
+                    this._context = this._canvas.getContext("2d");
+                    this._context.clearRect(0, 0, this._width, this._height);
+                    this._context.globalAlpha = this._options.colorAlpha;
+                    window.addEventListener("resize", this._onResize);
+                    window.addEventListener("scroll", this._onScroll);
+                    var body_ = document.getElementsByTagName('body')[0];
+                    body_.appendChild(this._canvas);
+                } catch (e) {
+                    console.warn("Canvas Context Error: " + e.toString());
+                    return;
+                }
+                this._onDraw();
+            }, addRibbon: function () {
+                var dir = Math.round(random(1, 9)) > 5 ? "right" : "left", stop = 1000, hide = 200, min = 0 - hide,
+                    max = this._width + hide, movex = 0, movey = 0, startx = dir === "right" ? min : max,
+                    starty = Math.round(random(0, this._height));
+                if (/^(top|min)$/i.test(this._options.verticalPosition)) {
+                    starty = 0 + hide;
+                } else if (/^(middle|center)$/i.test(this._options.verticalPosition)) {
+                    starty = this._height / 2;
+                } else if (/^(bottom|max)$/i.test(this._options.verticalPosition)) {
+                    starty = this._height - hide;
+                }
+                var ribbon = [], point1 = new Point(startx, starty), point2 = new Point(startx, starty), point3 = null,
+                    color = Math.round(random(0, 360)), delay = 0;
+                while (true) {
+                    if (stop <= 0) break;
+                    stop--;
+                    movex = Math.round((Math.random() * 1 - 0.2) * this._options.horizontalSpeed);
+                    movey = Math.round((Math.random() * 1 - 0.5) * (this._height * 0.25));
+                    point3 = new Point();
+                    point3.copy(point2);
+                    if (dir === "right") {
+                        point3.add(movex, movey);
+                        if (point2.x >= max) break;
+                    } else if (dir === "left") {
+                        point3.subtract(movex, movey);
+                        if (point2.x <= min) break;
+                    }
+                    ribbon.push({
+                        point1: new Point(point1.x, point1.y),
+                        point2: new Point(point2.x, point2.y),
+                        point3: point3,
+                        color: color,
+                        delay: delay,
+                        dir: dir,
+                        alpha: 0,
+                        phase: 0
+                    });
+                    point1.copy(point2);
+                    point2.copy(point3);
+                    delay += 4;
+                    color += this._options.colorCycleSpeed;
+                }
+                this._ribbons.push(ribbon);
+            }, _drawRibbonSection: function (section) {
+                if (section) {
+                    if (section.phase >= 1 && section.alpha <= 0) {
+                        return true;
+                    }
+                    if (section.delay <= 0) {
+                        section.phase += 0.02;
+                        section.alpha = Math.sin(section.phase) * 1;
+                        section.alpha = section.alpha <= 0 ? 0 : section.alpha;
+                        section.alpha = section.alpha >= 1 ? 1 : section.alpha;
+                        if (this._options.animateSections) {
+                            var mod = Math.sin(1 + section.phase * Math.PI / 2) * 0.1;
+                            if (section.dir === "right") {
+                                section.point1.add(mod, 0);
+                                section.point2.add(mod, 0);
+                                section.point3.add(mod, 0);
+                            } else {
+                                section.point1.subtract(mod, 0);
+                                section.point2.subtract(mod, 0);
+                                section.point3.subtract(mod, 0);
+                            }
+                            section.point1.add(0, mod);
+                            section.point2.add(0, mod);
+                            section.point3.add(0, mod);
+                        }
+                    } else {
+                        section.delay -= 0.5;
+                    }
+                    var s = this._options.colorSaturation, l = this._options.colorBrightness,
+                        c = "hsla(" + section.color + ", " + s + ", " + l + ", " + section.alpha + " )";
+                    this._context.save();
+                    if (this._options.parallaxAmount !== 0) {
+                        this._context.translate(0, this._scroll * this._options.parallaxAmount);
+                    }
+                    this._context.beginPath();
+                    this._context.moveTo(section.point1.x, section.point1.y);
+                    this._context.lineTo(section.point2.x, section.point2.y);
+                    this._context.lineTo(section.point3.x, section.point3.y);
+                    this._context.fillStyle = c;
+                    this._context.fill();
+                    if (this._options.strokeSize > 0) {
+                        this._context.lineWidth = this._options.strokeSize;
+                        this._context.strokeStyle = c;
+                        this._context.lineCap = "round";
+                        this._context.stroke();
+                    }
+                    this._context.restore();
+                }
+                return false;
+            }, _onDraw: function () {
+                for (var i = 0, t = this._ribbons.length; i < t; ++i) {
+                    if (!this._ribbons[i]) {
+                        this._ribbons.splice(i, 1);
+                    }
+                }
+                this._context.clearRect(0, 0, this._width, this._height);
+                for (var a = 0; a < this._ribbons.length; ++a) {
+                    var ribbon = this._ribbons[a], numSections = ribbon.length, numDone = 0;
+                    for (var b = 0; b < numSections; ++b) {
+                        if (this._drawRibbonSection(ribbon[b])) {
+                            numDone++;
+                        }
+                    }
+                    if (numDone >= numSections) {
+                        this._ribbons[a] = null;
+                    }
+                }
+                if (this._ribbons.length < this._options.ribbonCount) {
+                    this.addRibbon();
+                }
+                requestAnimationFrame(this._onDraw);
+            }, _onResize: function (e) {
+                var screen = screenInfo(e);
+                this._width = screen.width;
+                this._height = screen.height;
+                if (this._canvas) {
+                    this._canvas.width = this._width;
+                    this._canvas.height = this._height;
+                    if (this._context) {
+                        this._context.globalAlpha = this._options.colorAlpha;
+                    }
+                }
+            }, _onScroll: function (e) {
+                var screen = screenInfo(e);
+                this._scroll = screen.scrolly;
+            }
+        };
+        return Factory;
+    });
+    new Ribbons();
+</script>
 
-        // 添加文档内容区域的滚动事件
-        document.getElementById('doc-content').addEventListener('scroll', function () {
-            const docHeight = this.scrollHeight - this.clientHeight;
-            const scrolled = (this.scrollTop / docHeight) * 100;
+<!-- 网格动态背景 -->
+<script type="text/javascript">
+    !function () {
+        //封装方法，压缩之后减少文件大小
+        function get_attribute(node, attr, default_value) {
+            return node.getAttribute(attr) || default_value;
+        }
+
+        //封装方法，压缩之后减少文件大小
+        function get_by_tagname(name) {
+            return document.getElementsByTagName(name);
+        }
+
+        //获取配置参数
+        function get_config_option() {
+            var scripts = get_by_tagname("script"),
+                script_len = scripts.length,
+                script = scripts[script_len - 1]; //当前加载的script
+            return {
+                l: script_len, //长度，用于生成id用
+                z: get_attribute(script, "zIndex", -1), //z-index
+                o: get_attribute(script, "opacity", 0.8), //opacity
+                c: get_attribute(script, "color", "255,255,255"), //color
+                n: get_attribute(script, "count", 350) //count
+            };
+        }
+
+        //设置canvas的高宽
+        function set_canvas_size() {
+            canvas_width = the_canvas.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+                canvas_height = the_canvas.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        }
+
+        //绘制过程
+        function draw_canvas() {
+            context.clearRect(0, 0, canvas_width, canvas_height);
+            //随机的线条和当前位置联合数组
+            var e, i, d, x_dist, y_dist, dist; //临时节点
+            //遍历处理每一个点
+            random_points.forEach(function (r, idx) {
+                r.x += r.xa,
+                    r.y += r.ya, //移动
+                    r.xa *= r.x > canvas_width || r.x < 0 ? -1 : 1,
+                    r.ya *= r.y > canvas_height || r.y < 0 ? -1 : 1, //碰到边界，反向反弹
+                    context.fillRect(r.x - 0.5, r.y - 0.5, 1, 1); //绘制一个宽高为1的点
+                //从下一个点开始
+                for (i = idx + 1; i < all_array.length; i++) {
+                    e = all_array[i];
+                    // 当前点存在
+                    if (null !== e.x && null !== e.y) {
+                        x_dist = r.x - e.x; //x轴距离 l
+                        y_dist = r.y - e.y; //y轴距离 n
+                        dist = x_dist * x_dist + y_dist * y_dist; //总距离, m
+
+                        dist < e.max && (e === current_point && dist >= e.max / 2 && (r.x -= 0.03 * x_dist, r.y -= 0.03 * y_dist), //靠近的时候加速
+                            d = (e.max - dist) / e.max,
+                            context.beginPath(),
+                            context.lineWidth = d / 2,
+                            context.strokeStyle = "#000000",
+                            context.moveTo(r.x, r.y),
+                            context.lineTo(e.x, e.y),
+                            context.stroke());
+                    }
+                }
+            }), frame_func(draw_canvas);
+        }
+
+        //创建画布，并添加到body中
+        var the_canvas = document.createElement("canvas"), //画布
+            config = get_config_option(), //配置
+            canvas_id = "c_n" + config.l, //canvas id
+            context = the_canvas.getContext("2d"), canvas_width, canvas_height,
+            frame_func = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (func) {
+                window.setTimeout(func, 1000 / 40);
+            }, random = Math.random,
+            current_point = {
+                x: null, //当前鼠标x
+                y: null, //当前鼠标y
+                max: 20000 // 圈半径的平方
+            },
+            all_array;
+        the_canvas.id = canvas_id;
+        the_canvas.style.cssText = "position:fixed;top:0;left:0;z-index:" + config.z + ";opacity:" + config.o;
+        get_by_tagname("body")[0].appendChild(the_canvas);
+
+        //初始化画布大小
+        set_canvas_size();
+        window.onresize = set_canvas_size;
+        //当时鼠标位置存储，离开的时候，释放当前位置信息
+        window.onmousemove = function (e) {
+            e = e || window.event;
+            current_point.x = e.clientX;
+            current_point.y = e.clientY;
+        }, window.onmouseout = function () {
+            current_point.x = null;
+            current_point.y = null;
+        };
+        //随机生成config.n条线位置信息
+        for (var random_points = [], i = 0; config.n > i; i++) {
+            var x = random() * canvas_width, //随机位置
+                y = random() * canvas_height,
+                xa = 2 * random() - 1, //随机运动方向
+                ya = 2 * random() - 1;
+            // 随机点
+            random_points.push({
+                x: x,
+                y: y,
+                xa: xa,
+                ya: ya,
+                max: 6000 //沾附距离
+            });
+        }
+        all_array = random_points.concat([current_point]);
+        //0.1秒后绘制
+        setTimeout(function () {
+            draw_canvas();
+        }, 100);
+    }();
+</script>
+
+<script>
+    // 添加滚动监听
+    window.addEventListener('scroll', function () {
+        const docContent = document.getElementById('doc-content');
+        if (docContent) {
+            const docHeight = docContent.scrollHeight - docContent.clientHeight;
+            const scrolled = (docContent.scrollTop / docHeight) * 100;
             document.querySelector('.progress-bar').style.width = scrolled + '%';
-        });
-    </script>
+        }
+    });
 
-    <!-- <script>
+    // 添加文档内容区域的滚动事件
+    document.getElementById('doc-content').addEventListener('scroll', function () {
+        const docHeight = this.scrollHeight - this.clientHeight;
+        const scrolled = (this.scrollTop / docHeight) * 100;
+        document.querySelector('.progress-bar').style.width = scrolled + '%';
+    });
+</script>
+
+<!-- 鼠标点击爱心特效 -->
+<script>
+    var a_idx = 0;
+    jQuery(document).ready(function ($) {
+        $("body").click(function (e) {
+            var a = new Array("❤不做咸鱼！❤", "❤拒绝懒惰！❤", "❤想做吃货❤", "❤向大佬学习❤", "❤扶我起来~❤", "❤come on❤", "❤一直在路上~❤", "❤累了~❤", "❤再趴一会❤", "❤66666❤", "❤高兴的飞起*****❤");
+            var $i = $("<span></span>").text(a[a_idx]);
+            a_idx = (a_idx + 1) % a.length;
+            var x = e.pageX,
+                y = e.pageY;
+            $i.css({
+                "z-index": 999999999999999999999999999999999999999999999999999999999999999999999,
+                "top": y - 20,
+                "left": x,
+                "position": "absolute",
+                "font-weight": "bold",
+                "color": "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+            });
+            $("body").append($i);
+            $i.animate({
+                "top": y - 180,
+                "opacity": 0
+            },
+                1500,
+                function () {
+                    $i.remove();
+                });
+        });
+    });
+</script>
+
+<!-- <script>
         // 添加收藏逻辑
         document.querySelectorAll('.favorite-btn').forEach(btn => {
             // 初始化检查收藏状态
@@ -2024,7 +2658,7 @@
         });
     </script> -->
 
-    <!-- <script>
+<!-- <script>
         // 深色模式切换
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
