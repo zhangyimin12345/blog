@@ -1178,6 +1178,7 @@
                 <div class="announcement-time">2025-4-22</div>
                 <div class="announcement-content">
                     <h5>欢迎回到 <strong>my</strong> 博客！本次更新进行了若干项功能添加，详见"更新日志"。</h5>
+                    <h5>小猫在本地可正常加载，放上来后就不行了，还在修。</h5>
                     <h5>有 <strong>bug</strong> 一定要在评论区说出来啊！后续会增加已处理 <strong>bug</strong> 界面，以防重复报错。</h5>
                 </div>
             </div>
@@ -2590,129 +2591,6 @@ transition: all 0.3s ease;
         }, 100);
     }();
 </script>
-
-<script>
-    // 添加滚动监听
-    window.addEventListener('scroll', function () {
-        const docContent = document.getElementById('doc-content');
-        if (docContent) {
-            const docHeight = docContent.scrollHeight - docContent.clientHeight;
-            const scrolled = (docContent.scrollTop / docHeight) * 100;
-            document.querySelector('.progress-bar').style.width = scrolled + '%';
-        }
-    });
-
-    // 添加文档内容区域的滚动事件
-    document.getElementById('doc-content').addEventListener('scroll', function () {
-        const docHeight = this.scrollHeight - this.clientHeight;
-        const scrolled = (this.scrollTop / docHeight) * 100;
-        document.querySelector('.progress-bar').style.width = scrolled + '%';
-    });
-</script>
-
-<!-- 鼠标点击爱心特效 -->
-<script>
-    var a_idx = 0;
-    jQuery(document).ready(function ($) {
-        $("body").click(function (e) {
-            var a = new Array("❤不做咸鱼！❤", "❤拒绝懒惰！❤", "❤想做吃货❤", "❤向大佬学习❤", "❤扶我起来~❤", "❤come on❤", "❤一直在路上~❤", "❤累了~❤", "❤再趴一会❤", "❤66666❤", "❤高兴的飞起*****❤");
-            var $i = $("<span></span>").text(a[a_idx]);
-            a_idx = (a_idx + 1) % a.length;
-            var x = e.pageX,
-                y = e.pageY;
-            $i.css({
-                "z-index": 999999999999999999999999999999999999999999999999999999999999999999999,
-                "top": y - 20,
-                "left": x,
-                "position": "absolute",
-                "font-weight": "bold",
-                "color": "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
-            });
-            $("body").append($i);
-            $i.animate({
-                "top": y - 180,
-                "opacity": 0
-            },
-                1500,
-                function () {
-                    $i.remove();
-                });
-        });
-    });
-</script>
-
-<!-- <script>
-        // 添加收藏逻辑
-        document.querySelectorAll('.favorite-btn').forEach(btn => {
-            // 初始化检查收藏状态
-            const articleId = btn.getAttribute('data-article-id');
-            if (localStorage.getItem(`article_${articleId}_favorited`) === 'true') {
-                btn.classList.add('active');
-            }
-
-            // 点击切换收藏状态
-            btn.addEventListener('click', function () {
-                this.classList.toggle('active');
-                localStorage.setItem(`article_${articleId}_favorited`, this.classList.contains('active'));
-            });
-        });
-    </script> -->
-
-<!-- <script>
-        // 深色模式切换
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-        }
-
-        // 初始化检查
-        if (localStorage.getItem('darkMode') === 'true' ||
-            (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.body.classList.add('dark-mode');
-        }
-
-        // 文章收藏功能增强
-        document.querySelectorAll('.favorite-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const articleId = this.dataset.articleId;
-                const isFavorited = this.classList.toggle('active');
-
-                // 更新本地存储
-                localStorage.setItem(`article_${articleId}_favorited`, isFavorited);
-
-                // 添加动画反馈
-                if (isFavorited) {
-                    this.innerHTML = '<i class="fas fa-star"></i> 已收藏';
-                    this.style.color = '#ffcc00';
-                } else {
-                    this.innerHTML = '<i class="far fa-star"></i> 收藏';
-                    this.style.color = '';
-                }
-            });
-        });
-
-        // 阅读进度功能
-        window.addEventListener('scroll', function () {
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrolled = (window.scrollY / docHeight) * 100;
-
-            // 更新进度条
-            document.querySelector('.reading-progress').style.width = scrolled + '%';
-
-            // 保存阅读位置
-            if (docHeight > 0) {
-                localStorage.setItem('scrollPosition', window.scrollY);
-            }
-        });
-
-        // 恢复阅读位置
-        window.addEventListener('load', function () {
-            const savedPosition = localStorage.getItem('scrollPosition');
-            if (savedPosition) {
-                window.scrollTo(0, savedPosition);
-            }
-        });
-    </script> -->
 
 </body>
 
