@@ -1029,6 +1029,63 @@
     </style>
 
     <style>
+        /* 在现有样式后添加giscus美化样式 */
+        .giscus,
+        .giscus-frame {
+            width: 100%;
+            border: none;
+            color-scheme: light;
+        }
+
+        .giscus-frame {
+            min-height: 300px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .giscus-frame .giscus-header {
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+        }
+
+        .giscus-frame .giscus-comment-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .giscus-frame .markdown-body {
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .giscus-frame .giscus-timeline {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .giscus-frame .giscus-timeline::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .giscus-frame .giscus-timeline::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .giscus-frame .giscus-timeline::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .giscus-frame .giscus-timeline::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
     </style>
 </head>
 
@@ -1156,11 +1213,14 @@
                     label="Utterances" issue-term="url" theme="github-light" crossorigin="anonymous" async> </script>
             </div>
             <div id="comments-2">
-                <script src="https://giscus.app/client.js" data-repo="zhangyimin12345/zhangyimin12345.github.io"
-                    data-repo-id="R_kgDOOZajhg" data-category="Announcements" data-category-id="DIC_kwDOOZajhs4CpHRv"
-                    data-mapping="url" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0"
-                    data-input-position="top" data-theme="light" data-lang="zh-CN" crossorigin="anonymous"
-                    async> </script>
+                <div class="giscus-frame">
+                    <script src="https://giscus.app/client.js" data-repo="zhangyimin12345/zhangyimin12345.github.io"
+                        data-repo-id="R_kgDOOZajhg" data-category="Announcements"
+                        data-category-id="DIC_kwDOOZajhs4CpHRv" data-mapping="url" data-strict="1"
+                        data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light"
+                        data-lang="zh-CN" crossorigin="anonymous" async>
+                        </script>
+                </div>
             </div>
         </main>
     </div>
